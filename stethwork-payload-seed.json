@@ -1,0 +1,424 @@
+{
+  "meta": {
+    "source": "https://steth.work",
+    "scrapedFrom": [
+      "https://steth.work"
+    ],
+    "notes": "Seed content captured from public homepage markup and rendered text."
+  },
+  "siteSettings": {
+    "siteName": "Steth.work",
+    "siteTagline": "Healthcare Professional Network",
+    "brand": {
+      "primaryAccentHex": "#1CC1C3",
+      "fontStack": "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+      "logoLightUrl": "https://steth.work/Images/logo/Logo-2%201.png",
+      "logoDarkUrl": "https://steth.work/Images/logo/Logo-2-2.png"
+    },
+    "navigation": {
+      "links": [
+        {
+          "label": "Home",
+          "url": "/",
+          "variant": "text",
+          "icon": "home"
+        },
+        {
+          "label": "Join now",
+          "url": "/user/register",
+          "variant": "solid"
+        },
+        {
+          "label": "Sign In",
+          "url": "/user/login",
+          "variant": "outline"
+        }
+      ]
+    },
+    "footer": {
+      "logoUrl": "https://steth.work/Images/logo/Logo-2-2.png",
+      "brandName": "Steth.work",
+      "subtitle": "Healthcare Professional Network",
+      "copyrightText": "© Copyright @ 2025 Steth.work All Rights Reserved.",
+      "copyrightUrl": "https://www.steth.work",
+      "legalLinks": [
+        {
+          "label": "Privacy Policy",
+          "url": "#"
+        },
+        {
+          "label": "Terms of Service",
+          "url": "#"
+        },
+        {
+          "label": "Cookie Policy",
+          "url": "#"
+        }
+      ],
+      "badges": [
+        {
+          "text": "Verified Healthcare Professionals Only",
+          "icon": "circle-check",
+          "iconColorClass": "text-green-400"
+        },
+        {
+          "text": "Global Network",
+          "icon": "globe",
+          "iconColorClass": "text-blue-400"
+        },
+        {
+          "text": "50,000+ Members",
+          "icon": "users",
+          "iconColorClass": "text-purple-400"
+        }
+      ]
+    }
+  },
+  "homepage": {
+    "title": "Home",
+    "slug": "home",
+    "_status": "published",
+    "layout": [
+      {
+        "blockType": "hero",
+        "heading": "A Smarter Way for Healthcare Experts to",
+        "highlightText": "Network, Grow, and Get Hired",
+        "description": "Join a global network of verified healthcare professionals. Discover jobs, connect with peers, build your reputation, and access opportunities tailored to your skills.",
+        "primaryCta": {
+          "label": "Create Your Professional Profile",
+          "url": "/user/register"
+        },
+        "secondaryCta": {
+          "label": "Explore Jobs",
+          "url": "/user/login"
+        },
+        "heroImageUrl": "https://steth.work/Images/homepage/health_team1.png",
+        "heroImageAlt": "Healthcare professionals networking",
+        "trustBadgeTitle": "Verified Profiles available",
+        "trustBadgeDescription": "Trusted by healthcare employers"
+      },
+      {
+        "blockType": "featuresStrip",
+        "features": [
+          {
+            "title": "Verified Professional Identity",
+            "description": "Trusted digital identity with credential verification",
+            "icon": "shield"
+          },
+          {
+            "title": "Curated Opportunities",
+            "description": "Only relevant jobs matching your specialty",
+            "icon": "target"
+          },
+          {
+            "title": "Peer Network",
+            "description": "Connect with healthcare professionals globally",
+            "icon": "users"
+          },
+          {
+            "title": "Career Growth",
+            "description": "Tools to track and advance your career",
+            "icon": "briefcase"
+          }
+        ]
+      },
+      {
+        "blockType": "contentSection",
+        "variant": "why-choose",
+        "heading": "Why Choose Steth.work?",
+        "subheading": "Built exclusively for healthcare professionals by healthcare professionals",
+        "cards": [
+          {
+            "title": "A Trusted Professional Identity for Healthcare",
+            "description": "Healthcare professionals need more than a generic job board. Steth.work verifies your credentials and builds your trusted digital identity that employers value.",
+            "imageUrl": "https://steth.work/Images/homepage/health_team3.png",
+            "imageAlt": "A Trusted Professional Identity for Healthcare",
+            "icon": "shield",
+            "bullets": [
+              "Verified profile",
+              "Work history and credentials",
+              "Skills & specialty tags",
+              "Professional reputation scoring"
+            ]
+          },
+          {
+            "title": "Opportunities That Match Your Expertise",
+            "description": "Whether you're a doctor, nurse, technician, therapist, or administrator—Steth.work brings the right roles to you.",
+            "imageUrl": "https://steth.work/Images/homepage/health_team2.png",
+            "imageAlt": "Opportunities That Match Your Expertise",
+            "icon": "target",
+            "chipsHeading": "Find jobs across:",
+            "chips": [
+              "Hospitals & clinics",
+              "Telehealth & digital health companies",
+              "Research institutes",
+              "Wellness & preventive health platforms",
+              "Medical device & pharmaceutical companies",
+              "Home care & allied health providers"
+            ]
+          },
+          {
+            "title": "Build Your Network, Accelerate Your Career",
+            "description": "Healthcare is a team profession. Steth.work helps you connect with peers, mentors, organisations, and thought leaders.",
+            "imageUrl": "https://steth.work/Images/homepage/health_team5.jpg",
+            "imageAlt": "Build Your Network, Accelerate Your Career",
+            "icon": "users",
+            "bullets": [
+              "Peer-to-peer messaging",
+              "Professional groups by specialty",
+              "Case discussions & knowledge-sharing forums",
+              "Events & CME opportunities"
+            ]
+          }
+        ]
+      },
+      {
+        "blockType": "contentSection",
+        "variant": "career-management",
+        "heading": "Comprehensive Career Management",
+        "subheading": "For Healthcare Professionals",
+        "description": "Streamline your career development with tools designed specifically for the healthcare industry.",
+        "icon": "briefcase",
+        "items": [
+          {
+            "label": "Career tracker"
+          },
+          {
+            "label": "Continuing education recommendations"
+          },
+          {
+            "label": "Interview preparation guides"
+          },
+          {
+            "label": "Salary benchmarks"
+          },
+          {
+            "label": "International job mobility insights"
+          },
+          {
+            "label": "Credential & licence renewal reminder"
+          }
+        ]
+      },
+      {
+        "blockType": "rolesGrid",
+        "heading": "Healthcare Roles We Serve",
+        "description": "Find opportunities across all healthcare specialties and levels",
+        "roles": [
+          {
+            "title": "Physicians & Specialists",
+            "description": "Discover opportunities tailored to your specialty"
+          },
+          {
+            "title": "Nurses (all levels)",
+            "description": "Discover opportunities tailored to your specialty"
+          },
+          {
+            "title": "Allied Health Professionals",
+            "description": "Discover opportunities tailored to your specialty"
+          },
+          {
+            "title": "Radiology & Imaging Technicians",
+            "description": "Discover opportunities tailored to your specialty"
+          },
+          {
+            "title": "Laboratory Technologists",
+            "description": "Discover opportunities tailored to your specialty"
+          },
+          {
+            "title": "Pharmacists",
+            "description": "Discover opportunities tailored to your specialty"
+          },
+          {
+            "title": "Health Administrators",
+            "description": "Discover opportunities tailored to your specialty"
+          },
+          {
+            "title": "Telemedicine Providers",
+            "description": "Discover opportunities tailored to your specialty"
+          },
+          {
+            "title": "Wellness Coaches & Health Educators",
+            "description": "Discover opportunities tailored to your specialty"
+          },
+          {
+            "title": "Healthcare Recruiters",
+            "description": "Discover opportunities tailored to your specialty"
+          }
+        ]
+      },
+      {
+        "blockType": "globalReach",
+        "eyebrow": "GLOBAL REACH",
+        "heading": "For Healthcare Professionals Everywhere",
+        "description": "Whether you're based in the GCC, India, Southeast Asia, Africa, UK, or US— opportunities come directly to you.",
+        "opportunities": [
+          {
+            "title": "Local Roles",
+            "description": "Find opportunities in your current location"
+          },
+          {
+            "title": "International Placements",
+            "description": "Global career advancement opportunities"
+          },
+          {
+            "title": "Remote & Hybrid Telehealth",
+            "description": "Work from anywhere flexibility"
+          },
+          {
+            "title": "Project-based & Locum",
+            "description": "Short-term and flexible engagements"
+          }
+        ],
+        "coverageTitle": "Global Coverage",
+        "coverageDescription": "Active opportunities in 50+ countries",
+        "regions": [
+          {
+            "name": "GCC",
+            "flag": "🏛️"
+          },
+          {
+            "name": "India",
+            "flag": "🇮🇳"
+          },
+          {
+            "name": "UK",
+            "flag": "🇬🇧"
+          },
+          {
+            "name": "Africa",
+            "flag": "🌍"
+          },
+          {
+            "name": "USA",
+            "flag": "🇺🇸"
+          },
+          {
+            "name": "SE Asia",
+            "flag": "🌏"
+          }
+        ]
+      },
+      {
+        "blockType": "privacySection",
+        "heading": "Your Data. Your Control.",
+        "description": "Complete privacy for healthcare professionals",
+        "body": "We built Steth.work with security and privacy at its core. Your information is protected with enterprise-grade security and transparent privacy controls.",
+        "imageUrl": "https://steth.work/Images/homepage/health_team4.jpg",
+        "imageAlt": "Secure healthcare collaboration",
+        "items": [
+          {
+            "title": "Verified Employers",
+            "description": "Only authenticated organizations can contact you"
+          },
+          {
+            "title": "Privacy Control",
+            "description": "Granular settings for profile visibility"
+          },
+          {
+            "title": "No Data Sharing",
+            "description": "We never sell your information"
+          },
+          {
+            "title": "GDPR Compliant",
+            "description": "Enterprise security standards"
+          }
+        ]
+      },
+      {
+        "blockType": "testimonials",
+        "heading": "Trusted by Healthcare Professionals",
+        "description": "Join thousands of healthcare professionals who have advanced their careers with Steth.work",
+        "items": [
+          {
+            "quote": "Steth.work helped me find a GCC hospital role within 3 weeks. The verification gave employers confidence immediately.",
+            "name": "Krishna",
+            "role": "Senior Radiographer",
+            "initial": "K",
+            "rating": 5
+          },
+          {
+            "quote": "The networking groups are what LinkedIn never gave me — real clinical discussions and real opportunities.",
+            "name": "Dr. Mark Thomas",
+            "role": "General Practitioner",
+            "initial": "D",
+            "rating": 5
+          }
+        ]
+      },
+      {
+        "blockType": "ctaSection",
+        "eyebrow": "FREE TO JOIN",
+        "heading": "Ready to Transform Your Healthcare Career?",
+        "description": "The world of healthcare is shifting fast. Stay connected, stay informed, and stay ahead.",
+        "primaryCta": {
+          "label": "Create Your Profile",
+          "url": "/user/register"
+        },
+        "secondaryCta": {
+          "label": "Browse Opportunities",
+          "url": "/user/login"
+        },
+        "signinPanelTitle": "Get Started in 60 Seconds",
+        "signinPanelSubtitle": "Already have an account?",
+        "googleSigninLabel": "Sign in with Google",
+        "emailSigninLabel": "Sign in with email address",
+        "emailSigninUrl": "/user/login",
+        "legalText": "By continuing, you agree to Steth.work's Terms of Service, Privacy Policy, and Cookie Policy."
+      }
+    ]
+  },
+  "designTokens": {
+    "colors": {
+      "brandTeal": {
+        "50": "#ecfdfd",
+        "100": "#cffaf9",
+        "200": "#a0f3f1",
+        "300": "#67e8e6",
+        "400": "#2dd4d7",
+        "500": "#1CC1C3",
+        "600": "#179fa3",
+        "700": "#147f83",
+        "800": "#155f63",
+        "900": "#164f52",
+        "950": "#052c2f"
+      },
+      "heroGradient": {
+        "from": "#eff6ff",
+        "via": "#ffffff",
+        "to": "#f0fdfa"
+      },
+      "ctaGradient": {
+        "from": "#1e40af",
+        "to": "#0f766e"
+      },
+      "footerGradient": {
+        "from": "#1e293b",
+        "to": "#0f172a"
+      }
+    },
+    "typography": {
+      "fontFamilySans": "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif",
+      "heroHeadingClass": "text-3xl md:text-4xl lg:text-5xl font-bold leading-tight",
+      "sectionHeadingClass": "text-3xl md:text-4xl font-bold",
+      "bodyLargeClass": "text-lg md:text-xl text-gray-600",
+      "bodyClass": "text-base md:text-lg text-gray-600"
+    },
+    "componentStyles": {
+      "buttons": {
+        "primary": "bg-brandTeal hover:bg-teal-500 text-white font-semibold py-3 px-6 rounded-xl",
+        "outline": "border-2 border-brandTeal text-brandTeal hover:bg-teal-50 font-semibold py-3 px-6 rounded-xl"
+      },
+      "cards": {
+        "default": "bg-white rounded-xl shadow-lg border border-gray-100",
+        "glassDark": "bg-white/10 backdrop-blur-sm border border-white/20",
+        "testimonial": "bg-white p-6 md:p-8 rounded-xl md:rounded-2xl shadow-lg"
+      },
+      "sectionSpacing": {
+        "default": "py-12 md:py-16",
+        "compact": "py-8",
+        "container": "container mx-auto px-4 sm:px-6 lg:px-8"
+      }
+    }
+  }
+}
