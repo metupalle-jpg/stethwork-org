@@ -44,8 +44,10 @@ jobs:
       - name: Run Cloud Build deploy
         run: |
           set -eux
+          SHORT_SHA=$(echo "${GITHUB_SHA}" | cut -c1-7)
+          IMAGE="${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/stethwork-org/${CLOUD_RUN_SERVICE}:${SHORT_SHA}"
           gcloud builds submit \
             --project "${GCP_PROJECT_ID}" \
             --config cloudbuild.yaml \
-            --substitutions "_REGION=${GCP_REGION},_SERVICE_NAME=${CLOUD_RUN_SERVICE}" \
+            --substitutions "_REGION=${GCP_REGION},_SERVICE_NAME=${CLOUD_RUN_SERVICE},_IMAGE=${IMAGE}" \
             .
