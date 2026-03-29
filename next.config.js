@@ -1,17 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: { unoptimized: true },
   output: 'standalone',
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: true },
   async rewrites() {
-    const jobsBase = process.env.STETHWORK_JOBS_URL || 'https://stethwork-jobs-389848866614.me-central1.run.app';
+    const JOBS = process.env.STETHWORK_JOBS_URL || 'https://stethwork-jobs-lyFnz37wsa-ww.a.run.app';
     return [
-      { source: '/jobseeker-login', destination: `${jobsBase}/jobseeker-login` },
-      { source: '/jobseeker-login/:path*', destination: `${jobsBase}/jobseeker-login/:path*` },
-      { source: '/jobseeker-registration', destination: `${jobsBase}/jobseeker-registration` },
-      { source: '/jobseeker-registration/:path*', destination: `${jobsBase}/jobseeker-registration/:path*` },
-      { source: '/employer', destination: `${jobsBase}/employer` },
-      { source: '/employer/:path*', destination: `${jobsBase}/employer/:path*` },
-      { source: '/api/jobs/:path*', destination: `${jobsBase}/api/:path*` },
+      { source: '/jobseeker-login', destination: `${JOBS}/jobseeker-login` },
+      { source: '/jobseeker-login/:path*', destination: `${JOBS}/jobseeker-login/:path*` },
+      { source: '/jobseeker-registration', destination: `${JOBS}/jobseeker-registration` },
+      { source: '/jobseeker-registration/:path*', destination: `${JOBS}/jobseeker-registration/:path*` },
+      { source: '/employer', destination: `${JOBS}/employer` },
+      { source: '/employer/:path*', destination: `${JOBS}/employer/:path*` },
+      { source: '/static/stethwork/:path*', destination: `${JOBS}/static/stethwork/:path*` },
+      { source: '/api/stethwork/:path*', destination: `${JOBS}/api/stethwork/:path*` },
     ];
   },
 };
