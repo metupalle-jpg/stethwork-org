@@ -1,0 +1,51 @@
+name: Deploy to Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+      GCP_REGION: ${{ vars.GCP_REGION }}
+      CLOUD_RUN_SERVICE: ${{ vars.CLOUD_RUN_SERVICE }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate required variables
+        run: |
+          set -eu
+          test -n "${GCP_PROJECT_ID}" || (echo "Missing repo variable: GCP_PROJECT_ID" && exit 1)
+          test -n "${GCP_REGION}" || (echo "Missing repo variable: GCP_REGION" && exit 1)
+          test -n "${CLOUD_RUN_SERVICE}" || (echo "Missing repo variable: CLOUD_RUN_SERVICE" && exit 1)
+          test -n "${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}" || (echo "Missing secret: GCP_WORKLOAD_IDENTITY_PROVIDER" && exit 1)
+          test -n "${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}" || (echo "Missing secret: GCP_SERVICE_ACCOUNT_EMAIL" && exit 1)
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
+
+      - name: Setup gcloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ env.GCP_PROJECT_ID }}
+
+      - name: Run Cloud Build deploy
+        run: |
+          set -eux
+          gcloud builds submit \
+            --project "${GCP_PROJECT_ID}" \
+            --config cloudbuild.yaml \
+            --substitutions "_REGION=${GCP_REGION},_SERVICE_NAME=${CLOUD_RUN_SERVICE}" \
+            .
