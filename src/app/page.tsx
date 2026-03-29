@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 const PAYLOAD_URL = process.env.PAYLOAD_CMS_URL || 'https://payload-cms-389848866614.europe-west1.run.app';
 
 interface Feature {
@@ -60,6 +61,27 @@ async function getPageData(): Promise<PageData | null> {
   }
 }
 
+interface MediaItem {
+  id: number;
+  alt: string;
+  url: string;
+  filename: string;
+}
+
+async function getMediaItems(): Promise<MediaItem[]> {
+  try {
+    const res = await fetch(
+      `${PAYLOAD_URL}/api/media?depth=0&limit=20`,
+      { next: { revalidate: 60 } }
+    );
+    const data = await res.json();
+    return data?.docs || [];
+  } catch (e) {
+    console.error('Failed to fetch media', e);
+    return [];
+  }
+}
+
 function extractText(richText: any): string {
   if (typeof richText === 'string') return richText;
   if (!richText?.root?.children) return '';
@@ -68,7 +90,6 @@ function extractText(richText: any): string {
     .join(' ');
 }
 
-/* ---- Hardcoded fallback sections matching steth.work ---- */
 const ROLES = [
   'Physicians and Specialists','Nurses (all levels)','Allied Health Professionals',
   'Radiology and Imaging Technicians','Laboratory Technologists','Pharmacists',
@@ -83,6 +104,8 @@ const REGIONS = [
 
 export default async function Home() {
   const page = await getPageData();
+  const media = await getMediaItems();
+
   const hero = page?.layout?.find((b): b is HeroBlock => b.blockType === 'hero');
   const features = page?.layout?.find((b): b is FeaturesBlock => b.blockType === 'features');
   const cta = page?.layout?.find((b): b is CtaBlock => b.blockType === 'cta');
@@ -91,6 +114,12 @@ export default async function Home() {
   const heroSub = hero ? extractText(hero.subheading) : 'Join a global network of verified healthcare professionals.';
   const heroCtaText = hero?.ctaText || 'Create Your Professional Profile';
   const heroCtaLink = hero?.ctaLink || 'https://pro.stethwork.org/login';
+
+  // Find media by alt text
+  const heroImg = media.find(m => m.alt === 'healthteam1');
+  const card1Img = media.find(m => m.alt === 'healthteam5');
+  const card2Img = media.find(m => m.alt === 'healthteam2');
+  const card3Img = media.find(m => m.alt === 'healthteam3');
 
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -119,7 +148,11 @@ export default async function Home() {
             </div>
           </div>
           <div className="relative">
-            <div className="bg-gray-200 rounded-2xl h-80 flex items-center justify-center text-gray-400">Healthcare professionals</div>
+            {heroImg ? (
+              <img src={heroImg.url} alt={heroImg.alt} className="rounded-2xl w-full h-80 object-cover shadow-lg" />
+            ) : (
+              <div className="bg-gray-200 rounded-2xl h-80 flex items-center justify-center text-gray-400">Healthcare professionals</div>
+            )}
             <div className="absolute bottom-4 left-4 right-4 bg-white rounded-xl shadow-lg p-4 flex items-center gap-3">
               <div className="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center text-brandTeal">&#10003;</div>
               <div><p className="font-bold text-sm">Verified Profiles</p><p className="text-xs text-gray-500">Trusted by healthcare employers</p></div>
@@ -146,9 +179,34 @@ export default async function Home() {
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Why Choose <span className="text-brandTeal">Steth.work</span>?</h2>
           <p className="mt-2 text-gray-600">Built exclusively for healthcare professionals by healthcare professionals</p>
           <div className="mt-12 grid md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-2xl shadow-sm overflow-hidden"><div className="h-48 bg-gray-200"></div><div className="p-6 text-left"><h3 className="font-bold text-lg">A Trusted Professional Identity for Healthcare</h3><p className="mt-2 text-sm text-gray-600">Steth.work verifies your credentials and builds your trusted digital identity that employers value.</p><ul className="mt-3 space-y-1 text-sm text-gray-600"><li>Verified profile</li><li>Work history and credentials</li><li>Skills and specialty tags</li><li>Professional reputation scoring</li></ul></div></div>
-            <div className="bg-white rounded-2xl shadow-sm overflow-hidden"><div className="h-48 bg-gray-200"></div><div className="p-6 text-left"><h3 className="font-bold text-lg">Opportunities That Match Your Expertise</h3><p className="mt-2 text-sm text-gray-600">Whether you are a doctor, nurse, technician, therapist, or administrator, Steth.work brings the right roles to you.</p></div></div>
-            <div className="bg-white rounded-2xl shadow-sm overflow-hidden"><div className="h-48 bg-gray-200"></div><div className="p-6 text-left"><h3 className="font-bold text-lg">Build Your Network, Accelerate Your Career</h3><p className="mt-2 text-sm text-gray-600">Healthcare is a team profession. Connect with peers, mentors, organisations, and thought leaders.</p></div></div>
+            <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+              {card1Img ? (
+                <img src={card1Img.url} alt={card1Img.alt} className="h-48 w-full object-cover" />
+              ) : (<div className="h-48 bg-gray-200"></div>)}
+              <div className="p-6 text-left">
+                <h3 className="font-bold text-lg">A Trusted Professional Identity for Healthcare</h3>
+                <p className="mt-2 text-sm text-gray-600">Steth.work verifies your credentials and builds your trusted digital identity that employers value.</p>
+                <ul className="mt-3 space-y-1 text-sm text-gray-600"><li>Verified profile</li><li>Work history and credentials</li><li>Skills and specialty tags</li><li>Professional reputation scoring</li></ul>
+              </div>
+            </div>
+            <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+              {card2Img ? (
+                <img src={card2Img.url} alt={card2Img.alt} className="h-48 w-full object-cover" />
+              ) : (<div className="h-48 bg-gray-200"></div>)}
+              <div className="p-6 text-left">
+                <h3 className="font-bold text-lg">Opportunities That Match Your Expertise</h3>
+                <p className="mt-2 text-sm text-gray-600">Whether you are a doctor, nurse, technician, therapist, or administrator, Steth.work brings the right roles to you.</p>
+              </div>
+            </div>
+            <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+              {card3Img ? (
+                <img src={card3Img.url} alt={card3Img.alt} className="h-48 w-full object-cover" />
+              ) : (<div className="h-48 bg-gray-200"></div>)}
+              <div className="p-6 text-left">
+                <h3 className="font-bold text-lg">Build Your Network, Accelerate Your Career</h3>
+                <p className="mt-2 text-sm text-gray-600">Healthcare is a team profession. Connect with peers, mentors, organisations, and thought leaders.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -214,7 +272,7 @@ export default async function Home() {
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Trusted by Healthcare Professionals</h2>
           <div className="mt-12 grid md:grid-cols-2 gap-8">
             <div className="bg-gray-50 rounded-2xl p-8 text-left"><p className="text-gray-600 italic">&ldquo;Steth.work helped me find a GCC hospital role within 3 weeks. The verification gave employers confidence immediately.&rdquo;</p><div className="mt-4 flex items-center gap-3"><div className="w-10 h-10 rounded-full bg-brandTeal text-white flex items-center justify-center font-bold">K</div><div><p className="font-bold text-sm">Krishna</p><p className="text-xs text-gray-500">Senior Radiographer</p></div></div></div>
-            <div className="bg-gray-50 rounded-2xl p-8 text-left"><p className="text-gray-600 italic">&ldquo;The networking groups are what LinkedIn never gave me \u2014 real clinical discussions and real opportunities.&rdquo;</p><div className="mt-4 flex items-center gap-3"><div className="w-10 h-10 rounded-full bg-brandTeal text-white flex items-center justify-center font-bold">D</div><div><p className="font-bold text-sm">Dr. Mark Thomas</p><p className="text-xs text-gray-500">General Practitioner</p></div></div></div>
+            <div className="bg-gray-50 rounded-2xl p-8 text-left"><p className="text-gray-600 italic">&ldquo;The networking groups are what LinkedIn never gave me &mdash; real clinical discussions and real opportunities.&rdquo;</p><div className="mt-4 flex items-center gap-3"><div className="w-10 h-10 rounded-full bg-brandTeal text-white flex items-center justify-center font-bold">D</div><div><p className="font-bold text-sm">Dr. Mark Thomas</p><p className="text-xs text-gray-500">General Practitioner</p></div></div></div>
           </div>
         </div>
       </section>
