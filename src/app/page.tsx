@@ -249,7 +249,7 @@ export default async function Home() {
   const heroHeading = hero?.heading || 'A Smarter Way for Healthcare Experts to Network, Grow, and Get Hired';
   const heroSub = hero ? extractText(hero.subheading) : 'Join a global network of verified healthcare professionals.';
   const heroCtaText = hero?.ctaText || 'Create Your Professional Profile';
-  const heroCtaLink = hero?.ctaLink || 'https://pro.stethwork.org/login';
+  const heroCtaLink = hero?.ctaLink || '/jobseeker-registration';
 
   // Find media by alt text
   const heroImg = media.find(m => m.alt === 'healthteam1');
@@ -273,8 +273,8 @@ export default async function Home() {
             <Icon name="home" className="w-4 h-4" />
             Home
           </a>
-          <a href="https://pro.stethwork.org/login" className="text-sm px-4 py-2 bg-brandTeal text-white rounded-full hover:bg-brandTeal-600 transition">Join Now</a>
-          <a href="https://pro.stethwork.org/login" className="text-sm px-4 py-2 border border-brandTeal text-brandTeal rounded-full hover:bg-brandTeal hover:text-white transition">Sign In</a>
+          <a href="/jobseeker-registration" className="text-sm px-4 py-2 bg-brandTeal text-white rounded-full hover:bg-brandTeal-600 transition">Join Now</a>
+          <a href="/jobseeker-login" className="text-sm px-4 py-2 border border-brandTeal text-brandTeal rounded-full hover:bg-brandTeal hover:text-white transition">Sign In</a>
         </div>
       </nav>
 
@@ -289,7 +289,7 @@ export default async function Home() {
             <p className="mt-6 text-lg text-gray-600 max-w-lg">{heroSub}</p>
             <div className="mt-8 flex flex-wrap gap-4">
               <a href={heroCtaLink} className="px-6 py-3 bg-brandTeal text-white rounded-full font-semibold hover:bg-brandTeal-600 transition">{heroCtaText}</a>
-              <a href="https://pro.stethwork.org/login" className="px-6 py-3 border border-brandTeal text-brandTeal rounded-full font-semibold hover:bg-teal-50 transition">Explore Jobs</a>
+              <a href="/jobseeker-login" className="px-6 py-3 border border-brandTeal text-brandTeal rounded-full font-semibold hover:bg-teal-50 transition">Explore Jobs</a>
             </div>
           </div>
           <div className="relative">
@@ -505,8 +505,8 @@ export default async function Home() {
           <h2 className="text-2xl md:text-3xl font-bold text-white mt-2">{cta?.heading || 'Ready to Transform Your Healthcare Career?'}</h2>
           <p className="text-teal-100 mt-4">{cta?.description || 'The world of healthcare is shifting fast. Stay connected, stay informed, and stay ahead.'}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <a href={cta?.buttonLink || 'https://pro.stethwork.org/login'} className="px-6 py-3 bg-white text-brandTeal rounded-full font-semibold hover:bg-gray-100 transition">{cta?.buttonText || 'Create Your Profile'}</a>
-            <a href="https://pro.stethwork.org/login" className="px-6 py-3 border border-white text-white rounded-full font-semibold hover:bg-white/10 transition">Browse Opportunities</a>
+            <a href={cta?.buttonLink || '/jobseeker-registration'} className="px-6 py-3 bg-white text-brandTeal rounded-full font-semibold hover:bg-gray-100 transition">{cta?.buttonText || 'Create Your Profile'}</a>
+            <a href="/jobseeker-login" className="px-6 py-3 border border-white text-white rounded-full font-semibold hover:bg-white/10 transition">Browse Opportunities</a>
           </div>
         </div>
       </section>
