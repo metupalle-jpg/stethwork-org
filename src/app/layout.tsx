@@ -1,8 +1,12 @@
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Stethwork.org - Healthcare Professional Network',
-  description: 'Connect, collaborate, and grow with healthcare professionals worldwide.',
+  title: 'Steth.work - Healthcare Professional Network',
+  description: 'A smarter way for healthcare experts to network, grow, and get hired. Join a global network of verified healthcare professionals.',
 }
 
 export default function RootLayout({
@@ -12,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={inter.className}>{children}</body>
     </html>
   )
 }
