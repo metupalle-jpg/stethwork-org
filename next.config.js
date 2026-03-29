@@ -14,6 +14,9 @@ const nextConfig = {
       { source: '/employer/:path*', destination: `${JOBS}/employer/:path*` },
       { source: '/static/stethwork/:path*', destination: `${JOBS}/static/stethwork/:path*` },
       { source: '/api/stethwork/:path*', destination: `${JOBS}/api/stethwork/:path*` },
+      { source: '/base.css', destination: `${JOBS}/base.css` },
+      { source: '/style.css', destination: `${JOBS}/style.css` },
+      { source: '/app.js', destination: `${JOBS}/app.js` },
     ];
   },
 };
