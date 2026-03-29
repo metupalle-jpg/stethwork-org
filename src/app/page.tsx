@@ -275,6 +275,7 @@ export default async function Home() {
           </a>
           <a href="/jobseeker-registration" className="text-sm px-4 py-2 bg-brandTeal text-white rounded-full hover:bg-brandTeal-600 transition">Join Now</a>
           <a href="/jobseeker-login" className="text-sm px-4 py-2 border border-brandTeal text-brandTeal rounded-full hover:bg-brandTeal hover:text-white transition">Sign In</a>
+        <a href="/employer" className="text-sm px-4 py-2 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition">For Employers</a>
         </div>
       </nav>
 
