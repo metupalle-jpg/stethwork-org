@@ -1,0 +1,44 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    id: build-image
+    args:
+      - build
+      - "--tag"
+      - "${_IMAGE}"
+      - "--file"
+      - Dockerfile
+      - "."
+
+  - name: gcr.io/cloud-builders/docker
+    id: push-image
+    args:
+      - push
+      - "${_IMAGE}"
+
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    id: deploy-cloud-run
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - "${_SERVICE_NAME}"
+      - "--image"
+      - "${_IMAGE}"
+      - "--region"
+      - "${_REGION}"
+      - "--platform"
+      - managed
+      - "--allow-unauthenticated"
+      - "--port"
+      - "8080"
+
+images:
+  - "${_IMAGE}"
+
+substitutions:
+  _REGION: us-central1
+  _SERVICE_NAME: stethwork-org
+  _IMAGE: "${_REGION}-docker.pkg.dev/${PROJECT_ID}/stethwork-org/stethwork-org:${SHORT_SHA}"
+
+options:
+  logging: CLOUD_LOGGING_ONLY
