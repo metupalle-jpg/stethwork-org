@@ -1,11 +1,247 @@
-export default function Home() {
+const PAYLOAD_URL = process.env.PAYLOAD_CMS_URL || 'https://payload-cms-389848866614.europe-west1.run.app';
+
+interface Feature {
+  id: string;
+  title: string;
+  description: string;
+  icon: string | null;
+}
+
+interface HeroBlock {
+  blockType: 'hero';
+  heading: string;
+  subheading: any;
+  ctaText: string;
+  ctaLink: string;
+  image: any;
+}
+
+interface FeaturesBlock {
+  blockType: 'features';
+  heading: string;
+  features: Feature[];
+}
+
+interface CtaBlock {
+  blockType: 'cta';
+  heading: string;
+  description: string;
+  buttonText: string;
+  buttonLink: string;
+  style: string;
+}
+
+interface TextImageBlock {
+  blockType: 'textImage';
+  heading: string;
+  description: string;
+  layout: string;
+}
+
+type Block = HeroBlock | FeaturesBlock | CtaBlock | TextImageBlock;
+
+interface PageData {
+  title: string;
+  slug: string;
+  layout: Block[];
+}
+
+async function getPageData(): Promise<PageData | null> {
+  try {
+    const res = await fetch(
+      `${PAYLOAD_URL}/api/landing-pages?where[slug][equals]=stethwork-home&depth=1`,
+      { next: { revalidate: 60 } }
+    );
+    const data = await res.json();
+    return data?.docs?.[0] || null;
+  } catch (e) {
+    console.error('Failed to fetch CMS data', e);
+    return null;
+  }
+}
+
+function extractText(richText: any): string {
+  if (typeof richText === 'string') return richText;
+  if (!richText?.root?.children) return '';
+  return richText.root.children
+    .map((p: any) => p.children?.map((c: any) => c.text).join('') || '')
+    .join(' ');
+}
+
+/* ---- Hardcoded fallback sections matching steth.work ---- */
+const ROLES = [
+  'Physicians and Specialists','Nurses (all levels)','Allied Health Professionals',
+  'Radiology and Imaging Technicians','Laboratory Technologists','Pharmacists',
+  'Health Administrators','Telemedicine Providers','Wellness Coaches and Health Educators','Healthcare Recruiters'
+];
+
+const REGIONS = [
+  { name:'GCC', emoji:'\u{1F3DB}\uFE0F' },{ name:'India', emoji:'\u{1F1EE}\u{1F1F3}' },
+  { name:'UK', emoji:'\u{1F1EC}\u{1F1E7}' },{ name:'Africa', emoji:'\u{1F30D}' },
+  { name:'USA', emoji:'\u{1F1FA}\u{1F1F8}' },{ name:'SE Asia', emoji:'\u{1F30F}' }
+];
+
+export default async function Home() {
+  const page = await getPageData();
+  const hero = page?.layout?.find((b): b is HeroBlock => b.blockType === 'hero');
+  const features = page?.layout?.find((b): b is FeaturesBlock => b.blockType === 'features');
+  const cta = page?.layout?.find((b): b is CtaBlock => b.blockType === 'cta');
+
+  const heroHeading = hero?.heading || 'A Smarter Way for Healthcare Experts to Network, Grow, and Get Hired';
+  const heroSub = hero ? extractText(hero.subheading) : 'Join a global network of verified healthcare professionals.';
+  const heroCtaText = hero?.ctaText || 'Create Your Professional Profile';
+  const heroCtaLink = hero?.ctaLink || 'https://pro.stethwork.org/login';
+
   return (
-    <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: 'system-ui, sans-serif' }}>
-      <h1 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem' }}>Stethwork.org</h1>
-      <p style={{ fontSize: '1.25rem', color: '#555', maxWidth: '600px', textAlign: 'center' }}>
-        Healthcare Professional Network
-      </p>
-      <p style={{ marginTop: '2rem', color: '#888' }}>Coming soon</p>
-    </main>
-  )
+    <div className="min-h-screen bg-white font-sans">
+      {/* NAV */}
+      <nav className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
+        <div className="text-2xl font-bold"><span className="text-gray-900">steth</span><span className="text-brandTeal">.</span><span className="text-gray-900">work</span></div>
+        <div className="flex gap-4 items-center">
+          <a href="https://pro.stethwork.org" className="text-sm text-gray-700 hover:text-brandTeal">Health Professionals</a>
+          <a href="https://pro.stethwork.org/login" className="text-sm px-4 py-2 border border-brandTeal text-brandTeal rounded-full hover:bg-brandTeal hover:text-white transition">Sign In</a>
+          <a href="https://pro.stethwork.org/login" className="text-sm px-4 py-2 bg-brandTeal text-white rounded-full hover:bg-brandTeal-600 transition">Join Now</a>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <section className="bg-steth-hero py-16 px-6">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+              {heroHeading.split('Network, Grow, and Get Hired')[0]}
+              <span className="text-brandTeal">Network, Grow, and Get Hired</span>
+            </h1>
+            <p className="mt-6 text-lg text-gray-600 max-w-lg">{heroSub}</p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <a href={heroCtaLink} className="px-6 py-3 bg-brandTeal text-white rounded-full font-semibold hover:bg-brandTeal-600 transition">{heroCtaText}</a>
+              <a href="https://pro.stethwork.org/login" className="px-6 py-3 border border-brandTeal text-brandTeal rounded-full font-semibold hover:bg-teal-50 transition">Explore Jobs</a>
+            </div>
+          </div>
+          <div className="relative">
+            <div className="bg-gray-200 rounded-2xl h-80 flex items-center justify-center text-gray-400">Healthcare professionals</div>
+            <div className="absolute bottom-4 left-4 right-4 bg-white rounded-xl shadow-lg p-4 flex items-center gap-3">
+              <div className="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center text-brandTeal">&#10003;</div>
+              <div><p className="font-bold text-sm">Verified Profiles</p><p className="text-xs text-gray-500">Trusted by healthcare employers</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURES STRIP */}
+      <section className="bg-white py-8 border-y border-gray-100">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 px-6">
+          {(features?.features || []).map((f, i) => (
+            <div key={i} className="flex items-start gap-3">
+              <div className="w-8 h-8 bg-teal-50 rounded-lg flex items-center justify-center text-brandTeal text-sm">&#9733;</div>
+              <div><p className="font-bold text-sm text-gray-900">{f.title}</p><p className="text-xs text-gray-500">{f.description}</p></div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* WHY CHOOSE */}
+      <section className="py-16 px-6 bg-gray-50">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Why Choose <span className="text-brandTeal">Steth.work</span>?</h2>
+          <p className="mt-2 text-gray-600">Built exclusively for healthcare professionals by healthcare professionals</p>
+          <div className="mt-12 grid md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-2xl shadow-sm overflow-hidden"><div className="h-48 bg-gray-200"></div><div className="p-6 text-left"><h3 className="font-bold text-lg">A Trusted Professional Identity for Healthcare</h3><p className="mt-2 text-sm text-gray-600">Steth.work verifies your credentials and builds your trusted digital identity that employers value.</p><ul className="mt-3 space-y-1 text-sm text-gray-600"><li>Verified profile</li><li>Work history and credentials</li><li>Skills and specialty tags</li><li>Professional reputation scoring</li></ul></div></div>
+            <div className="bg-white rounded-2xl shadow-sm overflow-hidden"><div className="h-48 bg-gray-200"></div><div className="p-6 text-left"><h3 className="font-bold text-lg">Opportunities That Match Your Expertise</h3><p className="mt-2 text-sm text-gray-600">Whether you are a doctor, nurse, technician, therapist, or administrator, Steth.work brings the right roles to you.</p></div></div>
+            <div className="bg-white rounded-2xl shadow-sm overflow-hidden"><div className="h-48 bg-gray-200"></div><div className="p-6 text-left"><h3 className="font-bold text-lg">Build Your Network, Accelerate Your Career</h3><p className="mt-2 text-sm text-gray-600">Healthcare is a team profession. Connect with peers, mentors, organisations, and thought leaders.</p></div></div>
+          </div>
+        </div>
+      </section>
+
+      {/* CAREER MANAGEMENT */}
+      <section className="py-16 px-6">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center">Comprehensive Career Management</h2>
+          <p className="text-center text-gray-600 mt-2">For Healthcare Professionals</p>
+          <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-6">
+            {['Career Tracker','Continuing Education','Interview Preparation','Salary Benchmarks','International Mobility','Credential Reminders'].map((t,i)=>(
+              <div key={i} className="bg-gray-50 rounded-xl p-6"><p className="font-bold text-sm text-gray-900">{t}</p></div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HEALTHCARE ROLES */}
+      <section className="py-16 px-6 bg-gray-50">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Healthcare Roles We Serve</h2>
+          <p className="mt-2 text-gray-600">Find opportunities across all healthcare specialties and levels</p>
+          <div className="mt-12 grid grid-cols-2 md:grid-cols-5 gap-4">
+            {ROLES.map((r,i)=>(
+              <div key={i} className="bg-white rounded-xl p-4 shadow-sm text-center"><p className="font-bold text-sm text-gray-900">{r}</p><p className="text-xs text-gray-500 mt-1">Discover opportunities tailored to your specialty</p></div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GLOBAL REACH */}
+      <section className="py-16 px-6">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-xs font-semibold text-brandTeal uppercase tracking-wider">Global Reach</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mt-2">For Healthcare Professionals Everywhere</h2>
+          <div className="mt-12 grid md:grid-cols-4 gap-6">
+            {[{t:'Local Roles',d:'Find opportunities in your current location'},{t:'International Placements',d:'Global career advancement opportunities'},{t:'Remote & Hybrid Telehealth',d:'Work from anywhere flexibility'},{t:'Project-based & Locum',d:'Short-term and flexible engagements'}].map((c,i)=>(
+              <div key={i} className="bg-gray-50 rounded-xl p-6"><h3 className="font-bold text-sm">{c.t}</h3><p className="text-xs text-gray-500 mt-1">{c.d}</p></div>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            {REGIONS.map((r,i)=>(<span key={i} className="text-sm text-gray-600">{r.name} {r.emoji}</span>))}
+          </div>
+        </div>
+      </section>
+
+      {/* PRIVACY */}
+      <section className="py-16 px-6 bg-gray-50">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Your Data. Your Control.</h2>
+          <p className="mt-2 text-gray-600">Complete privacy for healthcare professionals</p>
+          <div className="mt-12 grid md:grid-cols-4 gap-6">
+            {[{t:'Verified Employers',d:'Only authenticated organizations can contact you'},{t:'Privacy Control',d:'Granular settings for profile visibility'},{t:'No Data Sharing',d:'We never sell your information'},{t:'GDPR Compliant',d:'Enterprise security standards'}].map((c,i)=>(
+              <div key={i} className="bg-white rounded-xl p-6 shadow-sm"><h3 className="font-bold text-sm">{c.t}</h3><p className="text-xs text-gray-500 mt-1">{c.d}</p></div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="py-16 px-6">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Trusted by Healthcare Professionals</h2>
+          <div className="mt-12 grid md:grid-cols-2 gap-8">
+            <div className="bg-gray-50 rounded-2xl p-8 text-left"><p className="text-gray-600 italic">&ldquo;Steth.work helped me find a GCC hospital role within 3 weeks. The verification gave employers confidence immediately.&rdquo;</p><div className="mt-4 flex items-center gap-3"><div className="w-10 h-10 rounded-full bg-brandTeal text-white flex items-center justify-center font-bold">K</div><div><p className="font-bold text-sm">Krishna</p><p className="text-xs text-gray-500">Senior Radiographer</p></div></div></div>
+            <div className="bg-gray-50 rounded-2xl p-8 text-left"><p className="text-gray-600 italic">&ldquo;The networking groups are what LinkedIn never gave me \u2014 real clinical discussions and real opportunities.&rdquo;</p><div className="mt-4 flex items-center gap-3"><div className="w-10 h-10 rounded-full bg-brandTeal text-white flex items-center justify-center font-bold">D</div><div><p className="font-bold text-sm">Dr. Mark Thomas</p><p className="text-xs text-gray-500">General Practitioner</p></div></div></div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-steth-cta py-16 px-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-xs font-semibold text-teal-200 uppercase tracking-wider">Free to Join</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-white mt-2">{cta?.heading || 'Ready to Transform Your Healthcare Career?'}</h2>
+          <p className="text-teal-100 mt-4">{cta?.description || 'The world of healthcare is shifting fast. Stay connected, stay informed, and stay ahead.'}</p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <a href={cta?.buttonLink || 'https://pro.stethwork.org/login'} className="px-6 py-3 bg-white text-brandTeal rounded-full font-semibold hover:bg-gray-100 transition">{cta?.buttonText || 'Create Your Profile'}</a>
+            <a href="https://pro.stethwork.org/login" className="px-6 py-3 border border-white text-white rounded-full font-semibold hover:bg-white/10 transition">Browse Opportunities</a>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="bg-steth-footer py-12 px-6">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+          <div><p className="text-white font-bold text-xl">Steth.work</p><p className="text-gray-400 text-sm">Healthcare Professional Network</p></div>
+          <div className="text-gray-400 text-sm">&copy; Copyright 2025 <span className="text-brandTeal">Steth.work</span> All Rights Reserved.</div>
+        </div>
+        <div className="max-w-7xl mx-auto mt-8 pt-6 border-t border-gray-700 flex flex-wrap justify-center gap-6 text-gray-400 text-xs">
+          <span>Verified Healthcare Professionals Only</span><span>Global Network</span><span>50,000+ Members</span>
+        </div>
+      </footer>
+    </div>
+  );
 }
