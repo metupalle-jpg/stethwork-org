@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-const PAYLOAD_URL = process.env.PAYLOAD_CMS_URL || 'https://payload-cms-389848866614.europe-west1.run.app';
+const PAYLOAD_URL = process.env.PAYLOAD_CMS_URL || 'https://storage.googleapis.com/ezeehealthcare-static';
 
 interface Feature {
   id: string;
@@ -252,10 +252,10 @@ export default async function Home() {
   const heroCtaLink = hero?.ctaLink || '/jobseeker-registration';
 
   // Find media by alt text
-  const heroImg = media.find(m => m.alt === 'healthteam1') || {url: 'https://payload-cms-389848866614.europe-west1.run.app/api/media/file/health_team1.png', alt:'healthteam1'};
-  const card1Img = media.find(m => m.alt === 'healthteam5') || {url: 'https://payload-cms-389848866614.europe-west1.run.app/api/media/file/health_team5.webp', alt:'healthteam5'};
-  const card2Img = media.find(m => m.alt === 'healthteam2') || {url: 'https://payload-cms-389848866614.europe-west1.run.app/api/media/file/health_team2.webp', alt:'healthteam2'};
-  const card3Img = media.find(m => m.alt === 'healthteam3') || {url: 'https://payload-cms-389848866614.europe-west1.run.app/api/media/file/health_team3.webp', alt:'healthteam3'};
+  const heroImg = media.find(m => m.alt === 'healthteam1') || {url: 'https://storage.googleapis.com/ezeehealthcare-static/api/media/file/health_team1.png', alt:'healthteam1'};
+  const card1Img = media.find(m => m.alt === 'healthteam5') || {url: 'https://storage.googleapis.com/ezeehealthcare-static/api/media/file/health_team5.webp', alt:'healthteam5'};
+  const card2Img = media.find(m => m.alt === 'healthteam2') || {url: 'https://storage.googleapis.com/ezeehealthcare-static/api/media/file/health_team2.webp', alt:'healthteam2'};
+  const card3Img = media.find(m => m.alt === 'healthteam3') || {url: 'https://storage.googleapis.com/ezeehealthcare-static/api/media/file/health_team3.webp', alt:'healthteam3'};
 
   return (
     <div className="min-h-screen bg-white font-sans">
