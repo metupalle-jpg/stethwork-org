@@ -51,6 +51,7 @@ async function getPageData(): Promise<PageData | null> {
   try {
     const res = await fetch(
       `${PAYLOAD_URL}/api/landing-pages?where[slug][equals]=stethwork-home&depth=1`,
+              // @ts-expect-error -- Next.js fetch cache extension not in RequestInit typedef
       { next: { revalidate: 60 } }
     );
     const data = await res.json();
@@ -72,6 +73,7 @@ async function getMediaItems(): Promise<MediaItem[]> {
   try {
     const res = await fetch(
       `${PAYLOAD_URL}/api/media?depth=0&limit=20`,
+              // @ts-expect-error -- Next.js fetch cache extension not in RequestInit typedef
       { next: { revalidate: 60 } }
     );
     const data = await res.json();
