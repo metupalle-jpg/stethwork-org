@@ -19,28 +19,29 @@ function hideSocialButtons(iframeEl: HTMLIFrameElement) {
   try {
     const doc = iframeEl.contentDocument || iframeEl.contentWindow?.document;
     if (!doc) return;
-    const style = doc.createElement('style');
-    style.textContent = `
-      button[class*="facebook"], button[class*="Facebook"],
-      button[class*="linkedin"], button[class*="LinkedIn"],
-      a[class*="facebook"], a[class*="Facebook"],
-      a[class*="linkedin"], a[class*="LinkedIn"],
-      [data-provider="facebook"], [data-provider="linkedin"],
-      .social-login-facebook, .social-login-linkedin,
-      button:has(svg[data-testid*="facebook"]), button:has(svg[data-testid*="linkedin"]) {
-        display: none !important;
-      }
-    `;
-    doc.head.appendChild(style);
-    const allButtons = doc.querySelectorAll('button, a');
-    allButtons.forEach((btn: Element) => {
-      const text = btn.textContent?.toLowerCase() || '';
-      if (text.includes('facebook') || text.includes('linkedin')) {
-        (btn as HTMLElement).style.display = 'none';
-      }
-    });
+    const hideMatching = () => {
+      const els = doc.querySelectorAll('button, a, div');
+      els.forEach((el: Element) => {
+        const text = el.textContent?.trim().toLowerCase() || '';
+        if (
+          (text === 'continue with facebook' || text === 'continue with linkedin' ||
+           text === 'sign in with facebook' || text === 'sign in with linkedin' ||
+           text === 'facebook' || text === 'linkedin') &&
+          el.closest('#app')
+        ) {
+          (el as HTMLElement).style.display = 'none';
+        }
+      });
+    };
+    hideMatching();
+    const observer = new MutationObserver(() => hideMatching());
+    const appEl = doc.getElementById('app') || doc.body;
+    observer.observe(appEl, { childList: true, subtree: true });
+    const intervals = [500, 1000, 2000, 3000, 5000];
+    intervals.forEach(ms => setTimeout(hideMatching, ms));
+    setTimeout(() => observer.disconnect(), 10000);
   } catch (e) {
-    console.log('Cannot access iframe content (cross-origin)');
+    console.log('Cannot access iframe content:', e);
   }
 }
 
@@ -50,11 +51,7 @@ export default function JobSeekerLoginPage() {
   useEffect(() => {
     const iframe = iframeRef.current;
     if (!iframe) return;
-    const onLoad = () => {
-      hideSocialButtons(iframe);
-      setTimeout(() => hideSocialButtons(iframe), 1000);
-      setTimeout(() => hideSocialButtons(iframe), 3000);
-    };
+    const onLoad = () => hideSocialButtons(iframe);
     iframe.addEventListener('load', onLoad);
     return () => iframe.removeEventListener('load', onLoad);
   }, []);
