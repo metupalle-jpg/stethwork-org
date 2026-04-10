@@ -2,6 +2,11 @@
 import TopNav from '@/components/TopNav';
 
 export default function JobSeekerLoginPage() {
+  const jobsLoginUrl =
+    process.env.NEXT_PUBLIC_STETHWORK_JOBS_URL ||
+    process.env.STETHWORK_JOBS_URL ||
+    'https://stethwork-jobs-24631288959.me-central1.run.app';
+
   return (
     <div className="min-h-screen bg-white font-sans flex flex-col">
       <TopNav showMarketingActions={false} />
@@ -9,7 +14,7 @@ export default function JobSeekerLoginPage() {
       {/* IFRAME CONTENT */}
       <main className="flex-1 flex justify-center items-start py-8 px-4 md:px-8 lg:px-12 bg-gray-50">
         <iframe
-          src="/portal/jobseeker-login#/stethwork/jobseeker"
+          src={`${jobsLoginUrl}/jobseeker-login#/stethwork/jobseeker`}
           className="w-full max-w-5xl border-0 rounded-2xl shadow-lg bg-white"
           style={{ minHeight: '700px' }}
           title="Job Seeker Login"
