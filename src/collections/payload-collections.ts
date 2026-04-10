@@ -1,4 +1,23 @@
-import type { Block, CollectionConfig, GlobalConfig } from 'payload'
+type Block = {
+  slug: string
+  interfaceName?: string
+  labels?: { singular?: string; plural?: string }
+  fields: unknown[]
+}
+
+type CollectionConfig = {
+  slug: string
+  admin?: Record<string, unknown>
+  fields: unknown[]
+  versions?: Record<string, unknown>
+  upload?: Record<string, unknown>
+}
+
+type GlobalConfig = {
+  slug: string
+  label?: string
+  fields: unknown[]
+}
 
 const linkFields = [
   {
