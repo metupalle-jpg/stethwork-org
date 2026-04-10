@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import TopNav from '@/components/TopNav';
 const PAYLOAD_URL = process.env.PAYLOAD_CMS_URL || 'https://storage.googleapis.com/ezeehealthcare-static';
 
 interface Feature {
@@ -261,25 +262,7 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-white font-sans">
-      {/* NAV */}
-      <nav className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
-        <a href="/" className="flex items-center">
-          <img
-            src="https://steth.work/Images/logo/Logo-2%201.png"
-            alt="Steth.work logo"
-            className="h-16 md:h-20 w-auto object-contain"
-          />
-        </a>
-        <div className="flex gap-4 items-center">
-          <a href="/" className="text-sm text-gray-700 hover:text-brandTeal inline-flex items-center gap-1">
-            <Icon name="home" className="w-4 h-4" />
-            Home
-          </a>
-          <a href="/jobseeker-registration" className="text-sm px-4 py-2 bg-brandTeal text-white rounded-full hover:bg-brandTeal-600 transition">Join Now</a>
-          <a href="/jobseeker-login" className="text-sm px-4 py-2 border border-brandTeal text-brandTeal rounded-full hover:bg-brandTeal hover:text-white transition">Sign In</a>
-        <a href="/employer" className="text-sm px-4 py-2 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition">For Employers</a>
-        </div>
-      </nav>
+      <TopNav showMarketingActions />
 
       {/* HERO */}
       <section className="bg-steth-hero py-16 px-6">
