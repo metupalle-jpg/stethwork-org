@@ -4,7 +4,7 @@ const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
   async rewrites() {
-    const JOBS = process.env.STETHWORK_JOBS_URL || 'https://stethwork-jobs-lyFnz37wsa-ww.a.run.app';
+    const JOBS = process.env.STETHWORK_JOBS_URL || 'https://stethwork-jobs-24631288959.me-central1.run.app';
     return [
       // Portal proxy rewrites (used by iframes)
       { source: '/portal/jobseeker-login', destination: `${JOBS}/jobseeker-login` },

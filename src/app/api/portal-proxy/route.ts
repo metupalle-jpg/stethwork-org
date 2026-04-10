@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const JOBS_URL = process.env.STETHWORK_JOBS_URL || 'https://stethwork-jobs-lyFnz37wsa-ww.a.run.app';
+const JOBS_URL = process.env.STETHWORK_JOBS_URL || 'https://stethwork-jobs-24631288959.me-central1.run.app';
 
 const HIDE_SOCIAL_CSS = `
 <style id="hide-social">
