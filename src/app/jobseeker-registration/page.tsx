@@ -38,10 +38,11 @@ export default function JobSeekerRegistrationPage() {
       {/* IFRAME CONTENT */}
       <main className="flex-1 flex justify-center items-start py-8 px-4 md:px-8 lg:px-12 bg-gray-50">
         <iframe
-          src="/api/portal-proxy?page=jobseeker-registration#/stethwork/jobseeker-registration"
+          src="https://stethwork-jobs-lyfnz37wsa-ww.a.run.app/jobseeker-registration#/stethwork/jobseeker-registration"
           className="w-full max-w-5xl border-0 rounded-2xl shadow-lg bg-white"
           style={{ minHeight: '700px' }}
           title="Job Seeker Registration"
+          allow="popups; popups-to-escape-sandbox"
         />
       </main>
 
