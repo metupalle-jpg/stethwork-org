@@ -1,7 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-'use client';
-
-import { useEffect, useRef } from 'react';
 
 function Icon({ name, className = 'w-5 h-5' }: { name: string; className?: string }) {
   if (name === 'home') {
@@ -15,47 +12,7 @@ function Icon({ name, className = 'w-5 h-5' }: { name: string; className?: strin
   return null;
 }
 
-function hideSocialButtons(iframeEl: HTMLIFrameElement) {
-  try {
-    const doc = iframeEl.contentDocument || iframeEl.contentWindow?.document;
-    if (!doc) return;
-    const hideMatching = () => {
-      const els = doc.querySelectorAll('button, a, div');
-      els.forEach((el: Element) => {
-        const text = el.textContent?.trim().toLowerCase() || '';
-        if (
-          (text === 'continue with facebook' || text === 'continue with linkedin' ||
-           text === 'sign in with facebook' || text === 'sign in with linkedin' ||
-           text === 'facebook' || text === 'linkedin') &&
-          el.closest('#app')
-        ) {
-          (el as HTMLElement).style.display = 'none';
-        }
-      });
-    };
-    hideMatching();
-    const observer = new MutationObserver(() => hideMatching());
-    const appEl = doc.getElementById('app') || doc.body;
-    observer.observe(appEl, { childList: true, subtree: true });
-    const intervals = [500, 1000, 2000, 3000, 5000];
-    intervals.forEach(ms => setTimeout(hideMatching, ms));
-    setTimeout(() => observer.disconnect(), 10000);
-  } catch (e) {
-    console.log('Cannot access iframe content:', e);
-  }
-}
-
 export default function JobSeekerLoginPage() {
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-
-  useEffect(() => {
-    const iframe = iframeRef.current;
-    if (!iframe) return;
-    const onLoad = () => hideSocialButtons(iframe);
-    iframe.addEventListener('load', onLoad);
-    return () => iframe.removeEventListener('load', onLoad);
-  }, []);
-
   return (
     <div className="min-h-screen bg-white font-sans flex flex-col">
       {/* NAV */}
@@ -81,8 +38,7 @@ export default function JobSeekerLoginPage() {
       {/* IFRAME CONTENT */}
       <main className="flex-1 flex justify-center items-start py-8 px-4 md:px-8 lg:px-12 bg-gray-50">
         <iframe
-          ref={iframeRef}
-          src="/portal/jobseeker-login#/stethwork/jobseeker"
+          src="/api/portal-proxy?page=jobseeker-login#/stethwork/jobseeker"
           className="w-full max-w-5xl border-0 rounded-2xl shadow-lg bg-white"
           style={{ minHeight: '700px' }}
           title="Job Seeker Login"
