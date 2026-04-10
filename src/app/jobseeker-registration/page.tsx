@@ -82,12 +82,12 @@ export default function JobSeekerRegistrationPage() {
       </nav>
 
       {/* IFRAME CONTENT */}
-      <main className="flex-1 flex justify-center items-start py-8 px-4 bg-gray-50">
+      <main className="flex-1 flex justify-center items-start py-8 px-4 md:px-8 lg:px-12 bg-gray-50">
         <iframe
           ref={iframeRef}
           src="/portal/jobseeker-registration#/stethwork/jobseeker-registration"
-          className="w-full max-w-2xl border-0 rounded-2xl shadow-lg bg-white"
-          style={{ minHeight: '800px' }}
+          className="w-full max-w-5xl border-0 rounded-2xl shadow-lg bg-white"
+          style={{ minHeight: '850px' }}
           title="Job Seeker Registration"
         />
       </main>
